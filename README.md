@@ -1,1 +1,1 @@
-# cavavino
+# CavaVino - Wine cellar management
