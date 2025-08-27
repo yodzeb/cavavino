@@ -138,6 +138,17 @@ function removeShelf(shelfId) {
     saveToStorage();
 }
 
+function renameShelf(shelfId) {
+    shelf = appData.shelves.filter(s => s.id == shelfId)[0];
+    new_name = window.prompt("New name for "+shelf.name, shelf.name);
+    if (new_name && new_name != shelf.name) {
+        shelf.name = new_name;
+        saveToStorage();
+        renderShelfManager();
+        renderShelves();
+    }
+}
+
 function swapShelves(i, j) {
     [ appData.shelves[i], appData.shelves[j] ] = [ appData.shelves[j], appData.shelves[i] ];
     saveToStorage();
@@ -157,7 +168,8 @@ function renderShelfManager() {
                     </div>
                     <div class="wine-details">${shelf.wines.length} bottles</div>
                     <div class="wine-actions">
-                        <button class="btn btn-danger" onclick="removeShelf(${shelf.id})">Remove</button>`;
+                        <button class="btn btn-danger" onclick="removeShelf(${shelf.id})">Remove</button>
+                        <button class="btn btn-danger" onclick="renameShelf(${shelf.id})">Rename</button>`;
         if (shelf != appData.shelves[0]){
             content += `<button class="btn" onclick="swapShelves(${i}, ${ i - 1 })">UP</button>` ;
         }
