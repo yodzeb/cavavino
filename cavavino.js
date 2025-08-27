@@ -234,6 +234,23 @@ function showAllWines() {
     showScreen('allWinesScreen');
 }
 
+function renderSingleWine(wine) {
+    rendered = `
+                    <div class="wine-name">${wine.name}</div>
+                    <div class="wine-details">
+                        ${wine.year ? wine.year + ' • ' : ''}${wine.region || ''} • ${wine.shelfName}
+                        ${wine.producer ? ' • ' + wine.producer : ''}
+                        ${wine.type ? ' • ' + wine.type : ''}
+                    </div>
+                    ${wine.notes ? `<div class="wine-details">${wine.notes}</div>` : ''}
+                    <div class="wine-actions">
+                        <button class="btn btn-danger" onclick="removeWine(${wine.id})">Take Bottle</button>
+                        <a target="_blank" href="https://www.idealwine.com/fr/acheter-du-vin/recherche-${wine.name}%20${ wine.year }"><button class="btn btn-danger" >IdealWine</button></a>
+                    </div>
+                `;
+    return rendered;
+}
+
 function renderAllWines() {
     const container = document.getElementById('winesList');
     const searchTerm = document.getElementById('wineSearchBar').value.toLowerCase();
@@ -257,18 +274,7 @@ function renderAllWines() {
     filteredWines.forEach(wine => {
         const wineItem = document.createElement('div');
         wineItem.className = 'wine-item';
-        wineItem.innerHTML = `
-                    <div class="wine-name">${wine.name}</div>
-                    <div class="wine-details">
-                        ${wine.year ? wine.year + ' • ' : ''}${wine.region || ''} • ${wine.shelfName}
-                        ${wine.producer ? ' • ' + wine.producer : ''}
-                        ${wine.type ? ' • ' + wine.type : ''}
-                    </div>
-                    ${wine.notes ? `<div class="wine-details">${wine.notes}</div>` : ''}
-                    <div class="wine-actions">
-                        <button class="btn btn-danger" onclick="removeWine(${wine.id})">Take Bottle</button>
-                    </div>
-                `;
+        wineItem.innerHTML = renderSingleWine(wine);
         container.appendChild(wineItem);
     });
 }
@@ -304,18 +310,7 @@ function renderShelfWines() {
     filteredShelfWines.forEach(wine => {
         const wineItem = document.createElement('div');
         wineItem.className = 'wine-item';
-        wineItem.innerHTML = `
-                    <div class="wine-name">${wine.name}</div>
-                    <div class="wine-details">
-                        ${wine.year ? wine.year + ' • ' : ''}${wine.region || ''}
-                        ${wine.producer ? ' • ' + wine.producer : ''}
-                        ${wine.type ? ' • ' + wine.type : ''}
-                    </div>
-                    ${wine.notes ? `<div class="wine-details">${wine.notes}</div>` : ''}
-                    <div class="wine-actions">
-                        <button class="btn btn-danger" onclick="removeWine(${wine.id})">Take Bottle</button>
-                    </div>
-                `;
+        wineItem.innerHTML = renderSingleWine(wine);
         container.appendChild(wineItem);
     });
 }
