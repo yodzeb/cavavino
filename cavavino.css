@@ -1,0 +1,389 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.app-container {
+    max-width: 100vw;
+    min-height: 100vh;
+    background: var(--cellar-color, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+    transition: background 0.3s ease;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.cellar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cellar-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.cellar-temp {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    color: #2c3e50;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: none;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    transition: right 0.3s ease;
+    z-index: 201;
+    overflow-y: auto;
+}
+
+.menu.open {
+    right: 0;
+}
+
+.menu-header {
+    padding: 20px;
+    background: #2c3e50;
+    color: white;
+    font-weight: bold;
+}
+
+.menu-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #ecf0f1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+    background: #f8f9fa;
+}
+
+.main-content {
+    padding: 20px;
+    min-height: calc(100vh - 80px);
+}
+
+.shelves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.shelf-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.shelf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.shelf-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.shelf-count {
+    background: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.shelf-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 150;
+    display: none;
+    flex-direction: column;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.screen-header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.screen-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.wine-item {
+    background: white;
+    border: 1px solid #ecf0f1;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.wine-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+.wine-details {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin: 5px 0;
+}
+
+.wine-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ecf0f1;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.history-item {
+    background: white;
+    border-left: 4px solid #3498db;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.history-action {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.history-time {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin: 5px 0;
+}
+
+.history-details {
+    font-size: 14px;
+    color: #555;
+}
+
+.color-picker {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.color-option {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-option.selected {
+    border-color: #2c3e50;
+    transform: scale(1.1);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 20px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #3498db;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.file-label:hover {
+    background: #2980b9;
+}
+
+@media (max-width: 768px) {
+    .shelves-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header {
+        padding: 10px 15px;
+    }
+    
+    .main-content {
+        padding: 15px;
+    }
+}

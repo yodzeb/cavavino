@@ -138,20 +138,34 @@ function removeShelf(shelfId) {
     saveToStorage();
 }
 
+function swapShelves(i, j) {
+    [ appData.shelves[i], appData.shelves[j] ] = [ appData.shelves[j], appData.shelves[i] ];
+    saveToStorage();
+    renderShelfManager();
+    renderShelves();
+}
+
 function renderShelfManager() {
     const container = document.getElementById('shelfsList');
     container.innerHTML = '';
 
-    appData.shelves.forEach(shelf => {
+    appData.shelves.forEach((shelf, i) => {
         const shelfItem = document.createElement('div');
         shelfItem.className = 'wine-item';
-        shelfItem.innerHTML = `
+        content = `
                     <div class="wine-name">${shelf.name}</div>
+                    </div>
                     <div class="wine-details">${shelf.wines.length} bottles</div>
                     <div class="wine-actions">
-                        <button class="btn btn-danger" onclick="removeShelf(${shelf.id})">Remove</button>
-                    </div>
-                `;
+                        <button class="btn btn-danger" onclick="removeShelf(${shelf.id})">Remove</button>`;
+        if (shelf != appData.shelves[0]){
+            content += `<button class="btn" onclick="swapShelves(${i}, ${ i - 1 })">UP</button>` ;
+        }
+        if (shelf != appData.shelves[appData.shelves.length - 1]){
+            content += `<button class="btn" onclick="swapShelves(${i}, ${i+1})">DOWN</button>`;
+        }
+        content += `</div>`;
+        shelfItem.innerHTML = content;
         container.appendChild(shelfItem);
     });
 }
