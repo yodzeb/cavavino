@@ -207,24 +207,20 @@ function addWine(event) {
 }
 
 function removeWine(wineId, shelfId = null) {
-    let shelf, wine;
-    
-    if (shelfId) {
-        shelf = appData.shelves.find(s => s.id === shelfId);
-        wine = shelf.wines.find(w => w.id === wineId);
-        shelf.wines = shelf.wines.filter(w => w.id !== wineId);
-    } else {
-        for (let s of appData.shelves) {
-            wine = s.wines.find(w => w.id === wineId);
-            if (wine) {
-                shelf = s;
+    let shelf, wine, confirmed=false;
+    for (let s of appData.shelves) {
+        wine = s.wines.find(w => w.id === wineId);
+        if (wine) {
+            shelf = s;
+            if (window.confirm("Confirm taking "+wine.name+"/"+wine.year+"?")) {
                 s.wines = s.wines.filter(w => w.id !== wineId);
-                break;
+                confirmed = true;
             }
+            break;
         }
     }
 
-    if (wine && shelf) {
+    if (wine && shelf && confirmed) {
         addToHistory('Remove Wine', `Removed "${wine.name}" from ${shelf.name}`, wine);
         renderShelves();
         renderAllWines();
@@ -270,7 +266,7 @@ function renderAllWines() {
                     </div>
                     ${wine.notes ? `<div class="wine-details">${wine.notes}</div>` : ''}
                     <div class="wine-actions">
-                        <button class="btn btn-danger" onclick="removeWine(${wine.id}, ${wine.shelfId})">Take Bottle</button>
+                        <button class="btn btn-danger" onclick="removeWine(${wine.id})">Take Bottle</button>
                     </div>
                 `;
         container.appendChild(wineItem);
@@ -317,7 +313,7 @@ function renderShelfWines() {
                     </div>
                     ${wine.notes ? `<div class="wine-details">${wine.notes}</div>` : ''}
                     <div class="wine-actions">
-                        <button class="btn btn-danger" onclick="removeWine(${wine.id}, ${currentShelfId})">Take Bottle</button>
+                        <button class="btn btn-danger" onclick="removeWine(${wine.id})">Take Bottle</button>
                     </div>
                 `;
         container.appendChild(wineItem);
