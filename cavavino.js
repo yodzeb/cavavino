@@ -241,9 +241,12 @@ function removeWine(wineId, shelfId = null) {
     }
 }
 
-function showAllWines() {
+function showAllWines(searchFocus = false) {
     renderAllWines();
     showScreen('allWinesScreen');
+    if (searchFocus) {
+        document.getElementById("wineSearchBar").focus();
+    }
 }
 
 function renderSingleWine(wine) {
