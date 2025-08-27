@@ -265,7 +265,7 @@ function renderSingleWine(wine) {
 
 function renderAllWines() {
     const container = document.getElementById('winesList');
-    const searchTerm = document.getElementById('wineSearchBar').value.toLowerCase();
+    const searchTerm = document.getElementById('wineSearchBar').value.toLowerCase() || "";
     
     const allWines = [];
     appData.shelves.forEach(shelf => {
@@ -274,12 +274,17 @@ function renderAllWines() {
         });
     });
 
-    filteredWines = allWines.filter(wine => {
-        return wine.name.toLowerCase().includes(searchTerm) ||
-            (wine.region && wine.region.toLowerCase().includes(searchTerm)) ||
-            (wine.producer && wine.producer.toLowerCase().includes(searchTerm)) ||
-            (wine.type && wine.type.toLowerCase().includes(searchTerm)) ||
-            (wine.year && wine.year.toString().includes(searchTerm));
+    filteredWines = allWines;
+    console.log(searchTerm.split(' '));
+    searchTerm.split(' ').forEach (term => {
+        tfiltered = allWines.filter(wine => {
+            return wine.name.toLowerCase().includes(term) ||
+                (wine.region && wine.region.toLowerCase().includes(term)) ||
+                (wine.producer && wine.producer.toLowerCase().includes(term)) ||
+                (wine.type && wine.type.toLowerCase().includes(term)) ||
+                (wine.year && wine.year.toString().includes(term));
+        });
+        filteredWines = filteredWines.filter(value => tfiltered.includes(value));
     });
 
     container.innerHTML = '';
