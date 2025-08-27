@@ -91,7 +91,7 @@ function renderShelves() {
         shelfCard.innerHTML = `
                     <div class="shelf-header">
                         <div class="shelf-name">${shelf.name}</div>
-                        <div class="shelf-count">${shelf.wines.length} bottles</div>
+                        <div class="shelf-count">${shelf.wines.length} bottle${ ( shelf.wines.length > 1)?"s":"" }</div>
                     </div>
                     <div class="shelf-actions">
                         <button class="btn btn-success" onclick="showAddWine(${shelf.id})">+ Add Wine</button>
